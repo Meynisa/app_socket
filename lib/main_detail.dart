@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newflutterapp/socket_provider.dart';
-import 'package:newflutterapp/string.dart';
 import 'package:provider/provider.dart';
 
 class MainDetail extends StatefulWidget {
@@ -14,11 +13,14 @@ class _MainDetailState extends State<MainDetail> {
 
   _proceedSocket(){
     var data = _socketProvider.socketData;
-    if (data["section"] == "newcomment") {
-      //TICKETS
-      print('SOCKET_ENTRY: $data');
-      listMsg.add(data["data"]["content"]);
+    if (data != ""){
+      if (data["section"] == "newcomment") {
+        //TICKETS
+        print('SOCKET_ENTRY: $data');
+        listMsg.add(data["data"]["content"]);
+      }
     }
+
   }
 
   @override
@@ -28,7 +30,7 @@ class _MainDetailState extends State<MainDetail> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text('${listMsg.length != 0 ? listMsg.last : ''}'),
+        child: Text('${listMsg.length != 0 ? listMsg.last ?? '' : ''}'),
       ),
     );
   }
